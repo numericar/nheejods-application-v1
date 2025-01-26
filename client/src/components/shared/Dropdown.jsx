@@ -1,6 +1,6 @@
 export default function Navbar() {
     return (
-        <diV>
+        <diV> 
             <p>Dropdown component</p>
         </diV>
     )
