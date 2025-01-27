@@ -1,3 +1,5 @@
+import Logo from "../shared/Logo";
+
 export default function Navbar() {
     return (
         <header>
@@ -6,8 +8,7 @@ export default function Navbar() {
                     <div className="flex justify-between items-center h-full">
                         <div className="flex items-end gap-3">
                             <h1 className="font-bold text-4xl">
-                                <span className="text-orange-400">หนี้</span>
-                                <span className="text-blue-500">จด</span>
+                                <Logo />
                             </h1>
                             <span className="text-gray-500 text-[11px] mb-1">
                                 DEVELOPMENT VERSION 1.0
