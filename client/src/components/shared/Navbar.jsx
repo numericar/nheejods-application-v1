@@ -18,13 +18,13 @@ export default function Navbar() {
                     <div className="flex justify-end gap-5 items-center w-1/2 h-full">
                         <a
                             href="#"
-                            className="bg-orange-400 text-white w-1/4 text-center px-6 py-2 rounded-lg font-bold transition-all cursor-pointer hover:bg-orange-300"
+                            className="bg-orange-400 text-white lg:w-2/5 xl:w-1/4 text-center px-6 py-2 rounded-lg font-bold transition-all cursor-pointer hover:bg-orange-300"
                         >
                             เข้าสู่ระบบ
                         </a>
                         <a
                             href="#"
-                            className="bg-blue-500 text-white w-1/4 text-center px-6 py-2 rounded-lg font-bold transition-all cursor-pointer hover:bg-blue-400"
+                            className="bg-blue-500 text-white lg:w-2/5 xl:w-1/4 text-center px-6 py-2 rounded-lg font-bold transition-all cursor-pointer hover:bg-blue-400"
                         >
                             สมัครสมาชิก
                         </a>
