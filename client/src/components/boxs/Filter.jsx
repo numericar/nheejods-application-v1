@@ -13,7 +13,7 @@ export default function Filter() {
         <div className="flex justify-end gap-5">
             <Dropdown items={months} onSelect={selectItemHandle} />
             <Dropdown items={years} onSelect={selectItemHandle} />
-            <button>ค้นหา</button>
+            <button className="bg-blue-500 px-4 rounded-lg text-white cursor-pointer transition-all hover:bg-blue-400">ค้นหา</button>
         </div>
     )
 }

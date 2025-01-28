@@ -24,7 +24,7 @@ export default function Dropdown(props) {
     return (
         <div className="relative">
             <div
-                className="border-solid border-gray-500 border-1 px-5 py-2 rounded-lg cursor-pointer bg-white flex justify-between"
+                className="border-solid border-gray-500 border-1 px-5 py-2 rounded-lg cursor-pointer bg-white flex justify-between hover:bg-gray-100"
                 onClick={openHandle}
             >
                 <span>{selectedVal}</span>
@@ -39,7 +39,7 @@ export default function Dropdown(props) {
                 {items && items.map((value, index) => (
                     <div
                         key={index}
-                        className="cursor-pointer hover:bg-gray-200 px-5 py-2"
+                        className="cursor-pointer hover:bg-gray-100 px-5 py-2"
                         onClick={() => selectValHandle(index)}
                     >
                         {value}
