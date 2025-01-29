@@ -3,7 +3,20 @@ import RickLevel from "./RickLevel";
 
 export default function Item({ boxItem }) {
     return (
-        <div className="border-solid border-1 border-gray-500 p-3 rounded-lg flex flex-col items-center gap-3 cursor-pointer hover:text-white hover:bg-linear-to-r hover:from-orange-400/70 hover:to-blue-500/70">
+        <div className="
+            border-solid 
+            border-1 
+            border-gray-500 
+            p-3 
+            rounded-lg 
+            flex 
+            flex-col 
+            items-center 
+            gap-3 
+            cursor-pointer 
+            hover:bg-linear-to-r 
+            hover:from-orange-400/10 
+            hover:to-blue-500/10">
             <h1 className="font-bold text-lg">{boxItem.month}</h1>
             <div className="flex flex-col items-center">
                 <span>ยอดคงเหลือ</span>
