@@ -32,9 +32,9 @@ export default function Item({ boxItem }) {
                     <span>{boxItem.expensesSummary}</span>
                 </div>
             </div>
-            <div>
-                <RickLevel />
-                <p className="text-center font-bold text-2xl">30.00%</p>
+            <div className="w-40 mx-auto">
+                <RickLevel level={3} />
+                <p className="text-center font-bold text-2xl mt-3">30.00%</p>
             </div>
         </div>
     )
