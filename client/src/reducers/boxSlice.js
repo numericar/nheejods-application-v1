@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const boxSlice = createSlice({
     name: "transaction",
     initialState: {
-        boxItems: [{
+        boxs: [{
             boxId: 1,
             month: "มกราคม",
             remaining: 20000,
@@ -37,11 +37,21 @@ const boxSlice = createSlice({
             expensesPercen: 30
         }],
         incomeTotal: 0,
-        expenseTotal: 0
+        expenseTotal: 0,
+        boxSelected: null
     },
     reducers: {
-
+        getBoxById: (state, action) => {
+            const index = action.payload;
+            if (index >= 0 && index < state.boxs.length) {
+                state.boxSelected = state.boxs[index];
+            } else {
+                state.boxSelected = null;
+            }
+        }
     }
 });
+
+export const { getBoxById } = boxSlice.actions;
 
 export default boxSlice.reducer;

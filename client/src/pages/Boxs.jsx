@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 export default function Boxs() {
     const dispatch = useDispatch();
 
-    const boxs = useSelector((state) => state.box.boxItems);
+    const boxs = useSelector((state) => state.box.boxs);
 
     return (
         <div className="container mx-auto mt-8">
