@@ -1,41 +1,12 @@
 import SummaryFinancial from "../components/shared/SummaryFinancial";
 import Filter from "../components/boxs/Filter";
 import Item from "../components/boxs/Item";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function Boxs() {
-    const boxs = [{
-        boxId: 1,
-        month: "มกราคม",
-        remaining: 20000,
-        incomeSummary: 30000,
-        expensesSummary: 10000,
-        rickLevel: 2,
-        expensesPercen: 30
-    },{
-        boxId: 2,
-        month: "กุมภาพันธ์",
-        remaining: 20000,
-        incomeSummary: 30000,
-        expensesSummary: 10000,
-        rickLevel: 2,
-        expensesPercen: 30
-    },{
-        boxId: 3,
-        month: "มีนาคม",
-        remaining: 20000,
-        incomeSummary: 30000,
-        expensesSummary: 10000,
-        rickLevel: 2,
-        expensesPercen: 30
-    },{
-        boxId: 4,
-        month: "เมษายน",
-        remaining: 20000,
-        incomeSummary: 30000,
-        expensesSummary: 10000,
-        rickLevel: 2,
-        expensesPercen: 30
-    }];
+    const dispatch = useDispatch();
+
+    const boxs = useSelector((state) => state.box.boxItems);
 
     return (
         <div className="container mx-auto mt-8">
