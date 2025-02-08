@@ -1,3 +1,6 @@
+const bcrypt = require("bcryptjs");
+const userService = require("../services/users.service");
+
 function healthCheck(req, res, next) {
     return res.status(201).json({
         isSuccess: true,
@@ -6,7 +9,7 @@ function healthCheck(req, res, next) {
     });
 }
 
-function register(req, res, next) {
+async function register(req, res, next) {
     try {
         const { email, password } = req.body;
 
@@ -16,6 +19,10 @@ function register(req, res, next) {
                 message: "Credentials is invalid",
                 data: null,
             });
+
+        const passwordHashed = bcrypt.hashSync(password, 10);
+        
+        await userService.create(email, passwordHashed);
 
         return res.status(201).json({
             isSuccess: true,
