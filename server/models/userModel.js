@@ -5,7 +5,7 @@ class UserModel {
         try {
             if (typeof email !== "string") throw new Error("Email should be type string");
 
-            const [rows] = await dbContext.query("SELECT * FROM nheejods.users u WHERE u.email = ?", [email]);
+            const [rows] = await dbContext.query("SELECT * FROM nheejods_db.users u WHERE u.email = ?", [email]);
 
             return rows[0] || null;
         } catch (err) {
@@ -26,6 +26,30 @@ class UserModel {
 
             return result.insertId;
 
+        } catch (err) {
+            throw new Error(err.message);
+        }
+    }
+
+    static async findPasswordHashByEmail(email) {
+        try {
+            if (typeof email !== "string") throw new Error("Email should be type string");
+
+            const [rows] = await dbContext.query("SELECT u.password FROM nheejods_db.users u WHERE u.email = ?", [email]);
+
+            return rows[0].password || null;
+        } catch (err) {
+            throw new Error(err.message);
+        }
+    }
+
+    static async findUserIdByEmail(email) {
+        try {
+            if (typeof email !== "string") throw new Error("Email should be type string");
+
+            const [rows] = await dbContext.query("SELECT u.id FROM nheejods_db.users u WHERE u.email = ?", [email]);
+
+            return rows[0].id || null;
         } catch (err) {
             throw new Error(err.message);
         }

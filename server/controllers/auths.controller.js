@@ -1,6 +1,6 @@
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 const userService = require("../services/users.service");
-const { use } = require("../routes/auths.route");
 
 function healthCheck(req, res, next) {
     return res.status(201).json({
@@ -46,7 +46,63 @@ async function register(req, res, next) {
     }
 }
 
+async function login(req, res, next) {
+    try {
+        const { email, password } = req.body;
+
+        if (typeof email !== "string" || typeof password !== "string")
+            return res.status(400).json({
+                isSuccess: false,
+                message: "Credentials is invalid",
+                data: null,
+            });
+
+        const userIsExist = await userService.isExistByEmail(email);
+        if (!userIsExist) return res.status(401).json({
+            isSuccess: false,
+            message: "Email or Password is invalid",
+            data: null
+        });
+
+        const passwordHashed = await userService.getPasswordHashed(email);
+        
+        const isValidPassword = bcrypt.compareSync(password, passwordHashed);
+        if (!isValidPassword) return res.status(401).json({
+            isSuccess: false,
+            message: "Email or Password is invalid",
+            data: null
+        });
+
+        const JWT_SECRET = process.env.JWT_SECRET;
+        if (typeof JWT_SECRET === "undefined") throw new Error("JWT_SECRET configuration");
+
+        const userId = await userService.getUserId(email);
+        const token = jwt.sign({
+            userId: userId
+        }, JWT_SECRET, {
+            expiresIn: '1d'
+        });
+
+        res.cookie("access_token", token, {
+            httpOnly: true
+        });
+
+        return res.status(200).json({
+            isSuccess: true,
+            message: "Successful",
+            data: null
+        });
+    } catch (err) {
+        return res.status(400).json({
+            isSuccess: false,
+            message: err.message,
+            data: null
+        })
+    }
+}
+
 module.exports = {
     healthCheck,
     register,
+    login
 };

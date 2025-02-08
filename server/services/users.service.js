@@ -30,7 +30,29 @@ async function isExistByEmail(email) {
     }
 }
 
+async function getPasswordHashed(email) {
+    try {
+        if (typeof email !== "string") throw new Error("Type of email is invalid");
+
+        return UserModel.findPasswordHashByEmail(email);
+    } catch (err) {
+        throw err;
+    }
+}
+
+async function getUserId(email) {
+    try {
+        if (typeof email !== "string") throw new Error("Type of email is invalid");
+
+        return UserModel.findUserIdByEmail(email);
+    } catch (err) {
+        throw err;
+    }
+}
+
 module.exports = {
     create,
-    isExistByEmail
+    isExistByEmail,
+    getPasswordHashed,
+    getUserId
 }
