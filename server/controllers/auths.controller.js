@@ -1,5 +1,6 @@
 const bcrypt = require("bcryptjs");
 const userService = require("../services/users.service");
+const { use } = require("../routes/auths.route");
 
 function healthCheck(req, res, next) {
     return res.status(201).json({
@@ -19,6 +20,13 @@ async function register(req, res, next) {
                 message: "Credentials is invalid",
                 data: null,
             });
+
+        const userIsExist = await userService.isExistByEmail(email);
+        if (userIsExist) return res.status(400).json({
+            isSuccess: false,
+            message: "Email is aleady to use",
+            data: null
+        });
 
         const passwordHashed = bcrypt.hashSync(password, 10);
         

@@ -15,6 +15,22 @@ async function create(email, password) {
     }
 }
 
+async function isExistByEmail(email) {
+    try {
+        if (typeof email !== "string") throw new Error("Type of email is invalid");
+
+        let user = await UserModel.findByEmail(email);
+        const isExist = (user !== null);
+
+        user = null;
+
+        return isExist;
+    } catch (err) {
+        throw err;
+    }
+}
+
 module.exports = {
-    create
+    create,
+    isExistByEmail
 }
