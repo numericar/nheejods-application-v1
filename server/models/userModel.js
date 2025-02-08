@@ -47,9 +47,9 @@ class UserModel {
         try {
             if (typeof email !== "string") throw new Error("Email should be type string");
 
-            const [rows] = await dbContext.query("SELECT u.id FROM nheejods_db.users u WHERE u.email = ?", [email]);
+            const [rows] = await dbContext.query("SELECT u.user_id FROM nheejods_db.users u WHERE u.email = ?", [email]);
 
-            return rows[0].id || null;
+            return rows[0].user_id || null;
         } catch (err) {
             throw new Error(err.message);
         }
