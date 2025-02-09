@@ -1,4 +1,6 @@
 const BoxModel = require("../models/boxModel");
+const BoxItemModel = require("../models/boxItemModel");
+const ITEM_TYPE_CONFIG = require("../configs/itemType.config");
 
 async function createBox(userId, year, month) {
     try {
@@ -14,6 +16,47 @@ async function createBox(userId, year, month) {
     }
 }
 
+async function isOwnerBox(userId, boxId) {
+    try {   
+        if (typeof userId !== "number" || typeof boxId !== "number") {
+            throw new Error("Type of data for find owner is invalid");
+        }
+
+        const box = await BoxModel.findById(boxId);
+
+        return box.userId === userId;
+    } catch (err) {
+        throw err;
+    }
+}
+
+async function addIncomeItem(boxId, title, amount) {
+    try {
+        if (typeof boxId !== "number" || typeof title !== "string" || typeof amount !== "number") {
+            throw new Error("Type of data for add income item is invalid");
+        }
+
+        await BoxItemModel.create(boxId, title, amount, ITEM_TYPE_CONFIG.INCOME);
+    } catch (err) {
+        throw err;
+    }
+}
+
+async function addExpenseItem(boxId, title, amount) {
+    try {
+        if (typeof boxId !== "number" || typeof title !== "string" || typeof amount !== "number") {
+            throw new Error("Type of data for add income item is invalid");
+        }
+
+        await BoxItemModel.create(boxId, title, amount, ITEM_TYPE_CONFIG.EXPENSE);
+    } catch (err) {
+        throw err;
+    }
+}
+
 module.exports = {
-    createBox
+    createBox,
+    isOwnerBox,
+    addIncomeItem,
+    addExpenseItem
 }
