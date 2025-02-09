@@ -5,7 +5,7 @@ const app = express();
 
 // middlewares
 app.use(express.json());
-app.use("/api", require("./middlewares/mapRoutes.middleware"));
+app.use("/api", require("./middlewares/route.middleware"));
 
 const PORT = process.env.PORT;
 if (PORT) {
