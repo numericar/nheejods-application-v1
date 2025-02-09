@@ -54,9 +54,24 @@ async function addExpenseItem(boxId, title, amount) {
     }
 }
 
+async function getByUserId(userId, year, month) {
+    try {
+        if (typeof userId !== "number") {
+            throw new Error("Type of data for get boxs by userId is invalid");
+        }
+
+        const boxs = await BoxModel.findByUserId(userId, year, month);
+
+        return boxs;
+    } catch (err) {
+        throw err;
+    }
+}
+
 module.exports = {
     createBox,
     isOwnerBox,
     addIncomeItem,
-    addExpenseItem
+    addExpenseItem,
+    getByUserId
 }

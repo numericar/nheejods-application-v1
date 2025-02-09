@@ -30,6 +30,32 @@ class BoxModel {
             throw err;
         }
     }
+
+    static async findByUserId(userId, year, month) {
+        try {
+            if (typeof userId !== "number") {
+                throw new Error("Type of data for find boxs is invalid");
+            }
+
+            let params = [userId];
+
+            let query = "SELECT b.box_id as boxId, b.`year`, b.`month` FROM nheejods_db.boxs b WHERE b.user_id = ?"
+            if (typeof year !== "undefined") {
+                query += " AND b.`year` = ?";
+                params.push(Number(year));
+            }
+            if (typeof month !== "undefined") {
+                query += " AND b.`month` = ?";
+                params.push(Number(month));
+            }
+
+            const [rows] = await dbContext.query(query, params);
+
+            return rows;
+        } catch (err) {
+            throw err;
+        }
+    }
     
     static async create(userId, month, year) {
         try {

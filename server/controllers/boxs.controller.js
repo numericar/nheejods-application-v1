@@ -113,8 +113,50 @@ async function createItems(req, res, next) {
     }
 }
 
+async function getBoxs(req, res, next) {
+    try {
+        const { year, month } = req.query;
+
+        let isInvalidFilter = false
+        if (typeof year !== "undefined") {
+            if (isNaN(year)) {
+                isInvalidFilter = true;
+            }
+        }
+
+        if (typeof month !== "undefined") {
+            if (isNaN(month)) {
+                isInvalidFilter = true;
+            }
+        }
+
+        if (isInvalidFilter) return res.status(400).json({
+            isSuccess: false,
+            message: "Filter year and month should be number",
+            data: null
+        });
+
+        const userId = Number(req.user.userId);
+
+        const boxs = await boxService.getByUserId(userId, year, month);
+
+        return res.status(200).json({
+            isSuccess: true,
+            message: "Successful",
+            data: boxs
+        })
+    } catch (err) {
+        return res.status(500).json({
+            isSuccess: false,
+            message: err.message,
+            data: null
+        });
+    }
+}
+
 module.exports = {
     healthCheck,
     createBox,
-    createItems
+    createItems,
+    getBoxs
 }
