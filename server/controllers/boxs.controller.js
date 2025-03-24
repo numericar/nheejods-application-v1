@@ -1,4 +1,5 @@
 const boxService = require("../services/boxs.service");
+const numberToThaiMonth = require("../utils/numberToThaiMonth");
 
 function healthCheck(req, res, next) {
     console.log(req.user);
@@ -140,10 +141,28 @@ async function getBoxs(req, res, next) {
 
         const boxs = await boxService.getByUserId(userId, year, month);
 
+        const boxResults = [];
+        for (let box of boxs) {
+            const monthName = numberToThaiMonth(box.month);
+            const income = 0;
+            const expense = 0;
+            const remaining = income - expense;
+            const expensePercent = (expense / income) * 100;
+
+            boxResults.push({
+                boxId: box.boxId,
+                monthName: monthName,
+                income: income,
+                expense: expense,
+                remaining: remaining,
+                expensePercent: expensePercent
+            });
+        }
+
         return res.status(200).json({
             isSuccess: true,
             message: "Successful",
-            data: boxs
+            data: boxResults
         })
     } catch (err) {
         return res.status(500).json({
